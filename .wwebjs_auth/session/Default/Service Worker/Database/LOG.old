@@ -1,2 +1,3 @@
-2025/05/27-22:31:33.579 2518 Creating DB C:\Users\Mute-X Satcher\Desktop\Backend\sms-backend\.wwebjs_auth\session\Default\Service Worker\Database since it was missing.
-2025/05/27-22:31:33.596 2518 Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Backend\sms-backend\.wwebjs_auth\session\Default\Service Worker\Database/MANIFEST-000001
+2025/05/28-23:58:12.346 1900 Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Backend\sms-backend\.wwebjs_auth\session\Default\Service Worker\Database/MANIFEST-000001
+2025/05/28-23:58:12.347 1900 Recovering log #3
+2025/05/28-23:58:12.347 1900 Reusing old log C:\Users\Mute-X Satcher\Desktop\Backend\sms-backend\.wwebjs_auth\session\Default\Service Worker\Database/000003.log 

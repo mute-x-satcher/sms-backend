@@ -1,2 +1,3 @@
-2025/05/27-22:31:19.171 27cc Creating DB C:\Users\Mute-X Satcher\Desktop\Backend\sms-backend\.wwebjs_auth\session\Default\Local Storage\leveldb since it was missing.
-2025/05/27-22:31:19.198 27cc Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Backend\sms-backend\.wwebjs_auth\session\Default\Local Storage\leveldb/MANIFEST-000001
+2025/05/28-23:58:12.307 88c Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Backend\sms-backend\.wwebjs_auth\session\Default\Local Storage\leveldb/MANIFEST-000001
+2025/05/28-23:58:12.307 88c Recovering log #3
+2025/05/28-23:58:12.308 88c Reusing old log C:\Users\Mute-X Satcher\Desktop\Backend\sms-backend\.wwebjs_auth\session\Default\Local Storage\leveldb/000003.log 
