@@ -44,12 +44,15 @@ const createAttendance = async (req,res) => {
         }
      })
 
-     const message = formatedMessage(reportDate,absnetStudents,"Today's Absent Students")
+     
+      
 
      if(absnetStudents.length > 0){
+         const message = formatedMessage(reportDate,absnetStudents,"Today's Absent Students")
          const client = getClient()
          await client.sendMessage(groupId,message)
-    }
+         console.log("Message sent successfuly",message) 
+     }
 
 
     return res.status(200).json({msg: 'Attendance report successfuly created', attendanceReport: attendanceInfo, pdfURL: url})
@@ -132,6 +135,8 @@ const updateAttendance = async (req,res) => {
            const message = formatedMessage(reportDate,absnetStudents,"Today's Absent Students(Updated)")
            const client = getClient()
            await client.sendMessage(groupId,message)
+           console.log("Message sent successfuly updated",message) 
+            
         }
     }
 
