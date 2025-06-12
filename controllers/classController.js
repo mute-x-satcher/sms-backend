@@ -80,7 +80,7 @@ const updateClass = async (req,res) => {
     
         if(updatedClassInfo.matchedCount == 1){
             query.classId = classId
-            return res.status(200).json({msg: 'class info updated successfuly' , query: query})
+            return res.status(200).json({msg: 'Class information updated successfuly' , query: query})
         }else{
             return res.status(400).json({msg: "Invaild classId",classId: classId})
         }

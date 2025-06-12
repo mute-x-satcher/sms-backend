@@ -4,7 +4,7 @@ const uploadPDF = require('../cloudinary/uploadToCloudinary');
 const deletePDFByUrl = require('../cloudinary/deleteFromCloudinary')
 const formattedDate = require('../date_and_time/formatedDate')
 const formatedMessage = require('../whatsapp-web/formattedMessage')
-const getClient = require('../whatsapp-web/client')
+const {getClient} = require('../whatsapp-web/client')
 
 
 const createAttendance = async (req,res) => {

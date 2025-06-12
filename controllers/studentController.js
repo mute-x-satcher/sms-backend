@@ -1,5 +1,5 @@
 const getFormattedMessage = require('../whatsapp-web/formattedMessage')
-const getClient = require('../whatsapp-web/client')
+const {getClient} = require('../whatsapp-web/client')
 const studnetModel = require('../models/studentModel')
 const formattedDate = require('../date_and_time/formatedDate')
 

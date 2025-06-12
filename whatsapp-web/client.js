@@ -4,6 +4,7 @@ const { sendQREmail } = require('../nodemailer/nodemail');
 const QRCode = require('qrcode');
 
 let clientInstance = null;
+let clientIsReady = false;
 
 function getClient() {
     if (clientInstance) return clientInstance;
@@ -21,6 +22,7 @@ function getClient() {
     });
 
     client.on('ready', () => {
+        clientIsReady = true
         console.log('🤖 WhatsApp client is ready!');
         isAuthenticated = true;  // Also mark authenticated when ready
     });
@@ -60,6 +62,10 @@ function getClient() {
 
     return clientInstance;
 }
+function isClientReady(){
+    return clientIsReady
+}
+
 
 async function destroyClient() {
     if (clientInstance) {
@@ -72,4 +78,4 @@ async function destroyClient() {
 
 process.on('SIGINT', destroyClient);
 
-module.exports = getClient;
+module.exports = {getClient,isClientReady};

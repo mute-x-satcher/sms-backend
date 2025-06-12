@@ -8,10 +8,13 @@ const studentRoutes = require('./routes/studentRoutes')
 const attendanceRoutes = require('./routes/attendanceRoutes')
 
 const {connectDB} = require('./db/db')
-const startClient = require('./whatsapp-web/client')
+const {getClient: startClient} = require('./whatsapp-web/client')
+
+console.log(startClient)
 
 connectDB() // We are initiating a data-base connection
 startClient() //We are initiating a whatsapp client
+
 
 app.use(cors({}))
 app.use(express.json()) // This for parsing in json

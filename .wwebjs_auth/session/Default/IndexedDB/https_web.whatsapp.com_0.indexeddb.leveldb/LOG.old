@@ -1,5 +1,11 @@
-2025/06/01-23:13:42.268 8d0 Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\backup-sms-backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2025/06/01-23:13:42.268 8d0 Recovering log #63
-2025/06/01-23:13:42.291 8d0 Reusing old log C:\Users\Mute-X Satcher\Desktop\backup-sms-backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000063.log 
-2025/06/01-23:13:42.291 8d0 Delete type=2 #61
-2025/06/01-23:13:42.291 8d0 Delete type=2 #64
+2025/06/12-22:16:01.140 2984 Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/06/12-22:16:01.140 2984 Recovering log #33
+2025/06/12-22:16:01.595 2984 Reusing old log C:\Users\Mute-X Satcher\Desktop\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000033.log 
+2025/06/12-22:16:03.250 51c Level-0 table #38: started
+2025/06/12-22:16:03.284 51c Level-0 table #38: 992483 bytes OK
+2025/06/12-22:16:03.288 51c Delete type=0 #33
+2025/06/12-22:16:03.289 51c Manual compaction at level-0 from '\x00\x19\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x1a\x00\x00\x00' @ 0 : 0; will stop at (end)
+2025/06/12-22:16:05.807 168c Compacting 1@1 + 1@2 files
+2025/06/12-22:16:05.971 168c Generated table #39@1: 38516 keys, 1601089 bytes
+2025/06/12-22:16:05.971 168c Compacted 1@1 + 1@2 files => 1601089 bytes
+2025/06/12-22:16:05.975 168c compacted to: files[ 0 0 1 0 0 0 0 ]

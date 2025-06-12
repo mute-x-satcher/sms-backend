@@ -1,4 +1,4 @@
-const getClient = require('../whatsapp-web/client')
+const {getClient} = require('../whatsapp-web/client')
 
 const checkGroup = async (req,res,next) => {
  try {
@@ -22,8 +22,8 @@ const checkGroup = async (req,res,next) => {
         next()
 
     } catch (error) {
-        console.error('Error sending message:', error);
-        return res.status(500).json({ msg: 'Group not found' });
+        console.error('Whatsapp Group Validation Error:', error);
+        return res.status(500).json({ msg: 'Whatsapp group not found' });
     }
 }
 
