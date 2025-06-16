@@ -48,7 +48,8 @@ const createAttendance = async (req,res) => {
 
      if(absnetStudents.length > 0){
          const client = getClient()
-         await client.sendMessage(groupId,message)
+          const msgResposne = await client.sendMessage(groupId,message)
+          console.log(`Create Attendance Message response: ${msgResposne}`) 
     }
 
 
@@ -131,7 +132,8 @@ const updateAttendance = async (req,res) => {
         if(absnetStudents.length > 0){ 
            const message = formatedMessage(reportDate,absnetStudents,"Today's Absent Students(Updated)")
            const client = getClient()
-           await client.sendMessage(groupId,message)
+           const msgResposne = await client.sendMessage(groupId,message)
+           console.log(`Update Attendance Message response: ${msgResposne}`) 
         }
     }
 
