@@ -80,7 +80,7 @@ const bunkReport = async (req,res) => {
             const client = getClient()
 
              const msgResposne = await client.sendMessage(groupId,message)
-           console.log(`Bunk report Message response: ${msgResposne}`) 
+           console.log(`Bunk report Message response:`,msgResposne) 
 
             return res.status(200).json({msg: 'Bunklist successfuly submitted'})
 
