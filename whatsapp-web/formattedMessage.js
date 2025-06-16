@@ -9,7 +9,7 @@ const getFormattedMessage = (date, studentList, heading , lecture) => {
 
   studentList.forEach((student, index) => {
     message += `${student.studentName}\nRoll Number: ${student.rollNumber}`;
-    message += `\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n`;
+    message += `\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ \n`;
    
   });
 
