@@ -1,19 +1,16 @@
-2025/06/15-13:07:34.740 1a7c Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2025/06/15-13:07:34.750 1a7c Recovering log #45
-2025/06/15-13:07:34.751 1a7c Reusing old log C:\Users\Mute-X Satcher\Desktop\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000045.log 
-2025/06/15-13:07:39.490 2028 Compacting 1@1 + 1@2 files
-2025/06/15-13:07:39.585 2028 Generated table #48@1: 41405 keys, 1696751 bytes
-2025/06/15-13:07:39.585 2028 Compacted 1@1 + 1@2 files => 1696751 bytes
-2025/06/15-13:07:39.593 2028 compacted to: files[ 0 0 1 0 0 0 0 ]
-2025/06/15-13:07:39.594 2028 Delete type=2 #43
-2025/06/15-13:07:39.594 2028 Delete type=2 #46
-2025/06/15-13:07:40.279 1dc0 Level-0 table #50: started
-2025/06/15-13:07:40.291 1dc0 Level-0 table #50: 11471 bytes OK
-2025/06/15-13:07:40.294 1dc0 Delete type=0 #45
-2025/06/15-13:07:40.294 1dc0 Manual compaction at level-0 from '\x00\x1d\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x1e\x00\x00\x00' @ 0 : 0; will stop at (end)
-2025/06/15-13:07:42.813 1dc0 Compacting 1@1 + 1@2 files
-2025/06/15-13:07:42.919 1dc0 Generated table #51@1: 41551 keys, 1700744 bytes
-2025/06/15-13:07:42.919 1dc0 Compacted 1@1 + 1@2 files => 1700744 bytes
-2025/06/15-13:07:42.923 1dc0 compacted to: files[ 0 0 1 0 0 0 0 ]
-2025/06/15-13:07:42.923 1dc0 Delete type=2 #48
-2025/06/15-13:07:42.923 1dc0 Delete type=2 #50
+2025/06/17-13:03:31.846 1170 Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/06/17-13:03:31.847 1170 Recovering log #173
+2025/06/17-13:03:31.868 1170 Reusing old log C:\Users\Mute-X Satcher\Desktop\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000173.log 
+2025/06/17-13:03:31.868 1170 Delete type=2 #170
+2025/06/17-13:03:31.868 1170 Delete type=2 #171
+2025/06/17-13:03:33.883 f2c Level-0 table #179: started
+2025/06/17-13:03:33.902 f2c Level-0 table #179: 109435 bytes OK
+2025/06/17-13:03:33.911 f2c Delete type=0 #173
+2025/06/17-13:03:33.912 f2c Manual compaction at level-0 from '\x00D\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00E\x00\x00\x00' @ 0 : 0; will stop at '\x00D\x00\x00\x05' @ 364740 : 1
+2025/06/17-13:03:33.912 f2c Compacting 1@0 + 2@1 files
+2025/06/17-13:03:34.060 f2c Generated table #180@0: 99587 keys, 2267064 bytes
+2025/06/17-13:03:34.073 f2c Generated table #181@0: 6189 keys, 120407 bytes
+2025/06/17-13:03:34.073 f2c Compacted 1@0 + 2@1 files => 2387471 bytes
+2025/06/17-13:03:34.076 f2c compacted to: files[ 0 2 1 0 0 0 0 ]
+2025/06/17-13:03:34.076 f2c Delete type=2 #179
+2025/06/17-13:03:34.077 f2c Manual compaction at level-0 from '\x00D\x00\x00\x05' @ 364740 : 1 .. '\x00E\x00\x00\x00' @ 0 : 0; will stop at (end)
