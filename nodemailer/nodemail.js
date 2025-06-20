@@ -36,10 +36,11 @@ try {
     >
       <tr>
         <td style="padding: 20px; text-align: center;">
-          <h2 style="color: #333;">Pocket Catlog - School Verification</h2>
+          <h2 style="color: #333;">Classmark - ${organization} Verification</h2>
           <p style="font-size: 16px; font-weight: bold; color: #555;">
-            Thank you for using Pocket Catlog for your ${organization}. Please use the
-            below verification code to verify yourself. Thanks!
+            Thank you for using Classmark for your ${organization}. 
+            Please use the below verification code to verify yourself.
+            Thanks!
           </p>
           <h1
             style="
