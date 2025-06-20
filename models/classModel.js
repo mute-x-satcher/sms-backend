@@ -19,7 +19,7 @@ const classSchema = mongoose.Schema({
             required: true
         },
         accountId:{
-            type: String,
+            type: mongoose.Schema.Types.ObjectId,
             required: true,
         }
 })

@@ -1,6 +1,6 @@
-const mongooose = require('mongoose')
+const mongoose = require('mongoose')
 
-const studentSchema = mongooose.Schema({
+const studentSchema = mongoose.Schema({
 
         studentName:{
             type: String,
@@ -15,7 +15,7 @@ const studentSchema = mongooose.Schema({
             required: true
         },
          classId:{
-            type: String,
+            type: mongoose.Schema.Types.ObjectId,
             required: true,
         },
         parentContacts:{
@@ -25,6 +25,6 @@ const studentSchema = mongooose.Schema({
 })
 
 
-const studnetModel = mongooose.model('students',studentSchema)
+const studnetModel = mongoose.model('students',studentSchema)
 
 module.exports = studnetModel

@@ -2,12 +2,19 @@ const getFormattedMessage = require('../whatsapp-web/formattedMessage')
 const {getClient} = require('../whatsapp-web/client')
 const studnetModel = require('../models/studentModel')
 const formattedDate = require('../date_and_time/formatedDate')
+const { default: mongoose } = require('mongoose')
 
 const createStudent = async(req,res) => {
 
     try {
         
         const {studentName,rollNumber,classId,parentContacts} = req.body
+
+           // We are using a optinal chaining to avoid eror of .length
+        if(!studentName || !rollNumber || !classId || parentContacts?.length === 0){
+            return res.status(400).json({msg: 'Please provide all fields'})
+        }
+
 
         const {className}= req.classInfo
 
@@ -35,7 +42,7 @@ const getStudent = async(req,res) => {
         console.log(req.body)
 
         if(!classId) return res.status(400).json({msg: 'Please provide a classId'})
-
+        // const newClassId = new mongoose.Types.ObjectId(classId)    
         const allStudentInfo = await studnetModel.find({classId: classId})
 
        

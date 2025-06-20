@@ -22,7 +22,7 @@ const attendanceSchema = mongoose.Schema({
 const attendanceReportSchema = mongoose.Schema({
 
         classId:{
-            type: String,
+            type: mongoose.Schema.Types.ObjectId,
             required: true
         },
         reportDate:{

@@ -1,15 +1,3 @@
-2025/06/20-12:40:34.080 644 Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2025/06/20-12:40:34.081 644 Recovering log #254
-2025/06/20-12:40:34.102 644 Reusing old log C:\Users\Mute-X Satcher\Desktop\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000254.log 
-2025/06/20-12:40:36.626 644 Level-0 table #260: started
-2025/06/20-12:40:36.637 644 Level-0 table #260: 147667 bytes OK
-2025/06/20-12:40:36.640 644 Delete type=0 #254
-2025/06/20-12:40:36.641 10c4 Manual compaction at level-0 from '\x00V\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00W\x00\x00\x00' @ 0 : 0; will stop at (end)
-2025/06/20-12:40:39.107 1edc Compacting 1@1 + 2@2 files
-2025/06/20-12:40:39.201 1edc Generated table #261@1: 49435 keys, 2205918 bytes
-2025/06/20-12:40:39.222 1edc Generated table #262@1: 12721 keys, 240007 bytes
-2025/06/20-12:40:39.222 1edc Compacted 1@1 + 2@2 files => 2445925 bytes
-2025/06/20-12:40:39.225 1edc compacted to: files[ 0 0 2 0 0 0 0 ]
-2025/06/20-12:40:39.226 1edc Delete type=2 #256
-2025/06/20-12:40:39.226 1edc Delete type=2 #257
-2025/06/20-12:40:39.226 1edc Delete type=2 #260
+2025/06/20-20:25:10.499 33ac Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/06/20-20:25:10.499 33ac Recovering log #308
+2025/06/20-20:25:10.604 33ac Reusing old log C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000308.log 
