@@ -2,9 +2,9 @@ const getFormattedMessage = (date, studentList, heading , lecture) => {
 
   let message
   if(!lecture){
-     message = `${date}\n${heading}\n\n`;
+     message = `${date}\n⚠️ ${heading} ⚠️\n\n`;
   }else{
-     message = `${date}\n${heading}\nBuncked lecture: ${lecture}\n\n`;
+     message = `${date}\n${heading}\n🔴Buncked lecture: ${lecture}\n\n`;
   }
 
   studentList.forEach((student, index) => {
