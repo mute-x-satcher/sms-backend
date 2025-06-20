@@ -3,7 +3,7 @@ const {getClient} = require('../whatsapp-web/client')
 const checkGroup = async (req,res,next) => {
  try {
         const client = getClient()
-        const { groupName } = req.body;
+        let { groupName } = req.body;
 
         console.log(req.body)
         
@@ -14,10 +14,13 @@ const checkGroup = async (req,res,next) => {
             chat.isGroup && chat.name.toLowerCase().trim() === groupName.toLowerCase().trim()
         );
 
+       
         if(!group) return res.status(404).json({msg: 'This Whatsapp group not found'})
 
+        console.log('entered group name:',groupName)    
         const groupId = group.id._serialized
-
+        groupName = group.name
+        console.log('updated:',groupName)
         req.groupInfo = {groupId,groupName}
         next()
 

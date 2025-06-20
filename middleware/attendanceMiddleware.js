@@ -4,14 +4,14 @@ const createAttendanceMiddleware = async(req,res,next) => {
 
     try {
     
-        const {classId} = req.body
+        // const {classId} = req.body
     
-        const date = formattedDate()
+        // const date = formattedDate()
 
-        const isExist = await attendanceModel.find({classId: classId,reportDate: date})
-        console.log(isExist)
+        // const isExist = await attendanceModel.find({classId: classId,reportDate: date})
+        // console.log(isExist)
 
-        if(isExist.length > 0) return res.status(409).json({msg: "Today's attendace already exist you can update or delete"})
+        // if(isExist.length > 0) return res.status(409).json({msg: "Today's attendace already exist you can update or delete"})
 
         next()
 

@@ -23,4 +23,4 @@ app.use('/class',classRoutes)
 app.use('/student',studentRoutes)
 app.use('/attendance',attendanceRoutes)
 
-app.listen(process.env.PORT, ()=> console.log(`Server started on PORT: ${process.env.PORT}`))
+app.listen(process.env.PORT,()=> console.log(`Server started on PORT: ${process.env.PORT}`))

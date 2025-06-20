@@ -1,5 +1,4 @@
-const { default: mongoose } = require('mongoose')
-const mognoose = require('mongoose')
+const mongoose = require('mongoose')
 
 
 const attendanceSchema = mongoose.Schema({
@@ -20,7 +19,7 @@ const attendanceSchema = mongoose.Schema({
 },{_id: false})
 
 
-const attendanceReportSchema = mognoose.Schema({
+const attendanceReportSchema = mongoose.Schema({
 
         classId:{
             type: String,
