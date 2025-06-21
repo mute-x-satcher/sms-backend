@@ -4,7 +4,7 @@ const getFormattedMessage = (date, studentList, heading , lecture) => {
   if(!lecture){
      message = `${date}\n⚠️ ${heading} ⚠️\n\n`;
   }else{
-     message = `${date}\n${heading}\n🔴Buncked lecture: ${lecture}\n\n`;
+     message = `${date}\n⚠️ ${heading} ⚠️\n 🛑 Buncked lecture: ${lecture} 🛑\n\n`;
   }
 
   studentList.forEach((student, index) => {
