@@ -1,15 +1,7 @@
-2025/06/20-20:28:33.452 1728 Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2025/06/20-20:28:33.452 1728 Recovering log #308
-2025/06/20-20:28:33.500 1728 Reusing old log C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000308.log 
-2025/06/20-20:28:36.651 2a40 Level-0 table #314: started
-2025/06/20-20:28:36.677 2a40 Level-0 table #314: 288272 bytes OK
-2025/06/20-20:28:36.682 2a40 Delete type=0 #308
-2025/06/20-20:28:36.701 302c Manual compaction at level-0 from '\x00f\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00g\x00\x00\x00' @ 0 : 0; will stop at (end)
-2025/06/20-20:28:39.755 15b4 Compacting 1@1 + 2@2 files
-2025/06/20-20:28:39.862 15b4 Generated table #315@1: 47867 keys, 2203874 bytes
-2025/06/20-20:28:39.905 15b4 Generated table #316@1: 24021 keys, 456573 bytes
-2025/06/20-20:28:39.905 15b4 Compacted 1@1 + 2@2 files => 2660447 bytes
-2025/06/20-20:28:39.907 15b4 compacted to: files[ 0 0 2 0 0 0 0 ]
-2025/06/20-20:28:39.908 15b4 Delete type=2 #310
-2025/06/20-20:28:39.908 15b4 Delete type=2 #311
-2025/06/20-20:28:39.908 15b4 Delete type=2 #314
+2025/06/21-13:58:04.493 18d4 Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/06/21-13:58:04.493 18d4 Recovering log #679
+2025/06/21-13:58:04.515 18d4 Reusing old log C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000679.log 
+2025/06/21-13:58:06.450 b80 Level-0 table #685: started
+2025/06/21-13:58:06.460 b80 Level-0 table #685: 142170 bytes OK
+2025/06/21-13:58:06.463 b80 Delete type=0 #679
+2025/06/21-13:58:06.464 b80 Manual compaction at level-0 from '\x00\xd5\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\xd6\x00\x00\x00' @ 0 : 0; will stop at (end)

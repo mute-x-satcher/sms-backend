@@ -1,2 +1,3 @@
-2025/06/17-17:15:08.512 1fec Creating DB C:\Users\Mute-X Satcher\Desktop\Backend\.wwebjs_auth\session\Default\shared_proto_db\metadata since it was missing.
-2025/06/17-17:15:08.558 1fec Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Backend\.wwebjs_auth\session\Default\shared_proto_db\metadata/MANIFEST-000001
+2025/06/20-12:45:40.985 644 Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Backend\.wwebjs_auth\session\Default\shared_proto_db\metadata/MANIFEST-000001
+2025/06/20-12:45:40.999 644 Recovering log #3
+2025/06/20-12:45:40.999 644 Reusing old log C:\Users\Mute-X Satcher\Desktop\Backend\.wwebjs_auth\session\Default\shared_proto_db\metadata/000003.log 

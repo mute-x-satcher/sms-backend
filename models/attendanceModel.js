@@ -3,12 +3,9 @@ const mongoose = require('mongoose')
 
 const attendanceSchema = mongoose.Schema({
 
-            studentName:{
-                type: String,
-                required: true,
-            },
-            rollNumber:{
-                type: String,
+            studentId:{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'students',
                 required: true
             },
             status:{
@@ -36,10 +33,6 @@ const attendanceReportSchema = mongoose.Schema({
         reportName:{
             type: String,
             default: 'Daily Attendance'
-        },
-        pdfURL:{
-            type: String,
-            required: true
         },
         attendance:{
             type: [attendanceSchema],

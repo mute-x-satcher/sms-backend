@@ -1,6 +1,3 @@
-2025/06/20-20:28:32.782 302c Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\Local Storage\leveldb/MANIFEST-000001
-2025/06/20-20:28:32.783 302c Recovering log #11
-2025/06/20-20:28:32.786 302c Reusing old log C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\Local Storage\leveldb/000011.log 
-2025/06/20-20:30:33.783 302c Level-0 table #14: started
-2025/06/20-20:30:33.798 302c Level-0 table #14: 15868 bytes OK
-2025/06/20-20:30:33.806 302c Delete type=0 #11
+2025/06/21-13:57:28.379 2774 Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\Local Storage\leveldb/MANIFEST-000001
+2025/06/21-13:57:28.380 2774 Recovering log #40
+2025/06/21-13:57:28.380 2774 Reusing old log C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\Local Storage\leveldb/000040.log 

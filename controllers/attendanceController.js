@@ -11,30 +11,45 @@ const createAttendance = async (req,res) => {
 
     try {
         const {classId,groupId,className,reportType,reportName,attendance} = req.body    
-        console.log(req.body)
+        // console.log(req.body)
         const reportDate = formattedDate()
         const data = req.body
         data.reportDate = reportDate
+        const attendanceInfo = await attendanceModel.create({
+                    classId: classId,
+                    reportDate: reportDate,
+                    reportType: reportType,
+                    reportName: reportName,
+                    attendance: attendance
+            
+            })
+            
+        const reportId = attendanceInfo._id
 
-        const buffer = await generatePDFBuffer(data);
-        const filename = `${data.className.replace(/\s+/g, '_')}_${reportDate.replace(/[\s,]+/g, '_')}.pdf`;
-        const url = await uploadPDF(buffer, filename);
-        console.log('Uploaded to Cloudinary:', url);
+        const populatedAttendance = await attendanceModel.findOne({_id: reportId}).populate({
+            path: 'attendance.studentId',
+            select: 'studentName rollNumber _id'
+        }).lean() 
+        // console.log(populatedAttendance.attendance)
+        
+            const flattened = populatedAttendance.attendance.map(entry => ({
+            ...entry.studentId,
+            status: entry.status
+            }))
+            populatedAttendance.attendance = flattened
+            const studentAttendance = populatedAttendance.attendance
+            // console.log(populatedAttendance.attendance)
 
+            let absnetStudents = []
+            
+        // const buffer = await generatePDFBuffer(data);
+        // const filename = `${data.className.replace(/\s+/g, '_')}_${reportDate.replace(/[\s,]+/g, '_')}.pdf`;
+        // const url = await uploadPDF(buffer, filename);
+        // console.log('Uploaded to Cloudinary:', url);
+            
+            
 
-    const attendanceInfo = await attendanceModel.create({
-            classId: classId,
-            reportDate: reportDate,
-            reportType: reportType,
-            reportName: reportName,
-            pdfURL: url,
-            attendance: attendance
-
-    })
-
-     let absnetStudents = []
-
-     attendance.map((student) => {
+     studentAttendance.map((student) => {
         if(student.status == 'absent')
         {
             absnetStudents.push({
@@ -49,11 +64,11 @@ const createAttendance = async (req,res) => {
      if(absnetStudents.length > 0){
          const client = getClient()
            const msgResposne = await client.sendMessage(groupId,message)
-           console.log(`Attendacne create Message response:`,msgResposne) 
+        //    console.log(`Attendacne create Message response:`,msgResposne) 
     }
 
 
-    return res.status(200).json({msg: 'Attendance report successfuly created', attendanceReport: attendanceInfo, pdfURL: url})
+    return res.status(200).json({msg: 'Attendance report successfuly created', attendanceReport: populatedAttendance})
 
     } catch (error) {
         console.log(`attendanceController-createAttendance Error: ${error}`,error)   
@@ -67,8 +82,23 @@ const getAttendance = async (req,res) => {
       const {classId} = req.body
 
       if(!classId) return res.status(400).json({msg: 'Please provide a classId'})
-        
-      const allAttendanceInfo  = await attendanceModel.find({classId})
+    
+      const allAttendanceInfo  = await attendanceModel.find({classId}).populate({
+            path: 'attendance.studentId',
+            select: 'studentName rollNumber _id'
+        }).lean() 
+
+      
+        allAttendanceInfo.map(populatedAttendance => {
+            const flattened = populatedAttendance.attendance.map(entry => ({
+            ...entry.studentId,
+            status: entry.status
+            }))
+            populatedAttendance.attendance = flattened
+            // console.log(populatedAttendance.attendance)
+        })
+
+            
 
       return res.status(200).json({msg: 'Attendance report fetch successful' , allAttendanceInfo: allAttendanceInfo})
 }
@@ -80,11 +110,21 @@ const updateAttendance = async (req,res) => {
         
         const {updatedAttendance,className,reportName,reportType,reportId,groupId} = req.body
 
-        const attendanceReport = await attendanceModel.findOne({_id: reportId})
-
-        const {attendance} = attendanceReport
-
-        for(const student of attendance){
+        const rawAttendance = await attendanceModel.findOne({_id: reportId})
+        const populatedAttendance = await attendanceModel.findOne({_id: reportId}).populate({
+            path: 'attendance.studentId',
+            select: 'studentName rollNumber -_id'
+        }).lean() 
+        // console.log(populatedAttendance.attendance)
+        
+            const flattened = populatedAttendance.attendance.map(entry => ({
+            ...entry.studentId,
+            status: entry.status
+            }))
+            populatedAttendance.attendance = flattened
+            const studentAttendance = populatedAttendance.attendance
+        
+        for(const student of studentAttendance){
             
             for(const updatedStudent of updatedAttendance){
 
@@ -92,33 +132,43 @@ const updateAttendance = async (req,res) => {
                 {
                     student.studentName = updatedStudent.studentName
                     student.status = updatedStudent.status
+
                 }
 
             }
 
         }
+        
+        for(const student of rawAttendance.attendance){
+            
+            for(const updatedStudent of updatedAttendance)
+            {       console.log("old status: ",student.status)
+                    console.log("new status: ",updatedStudent.status)
+                    if(student.studentId.toString() == updatedStudent.studentId)
+                    student.status = updatedStudent.status   
+            }
 
-        const buffer = await generatePDFBuffer(attendanceReport);
-        const filename = `${className.replace(/\s+/g, '_')}_${attendanceReport.reportDate.replace(/[\s,]+/g, '_')}.pdf`;
-        const url = await uploadPDF(buffer, filename);
-        console.log('Uploaded to Cloudinary(update route):', url);
+        }
+        // const buffer = await generatePDFBuffer(attendanceReport);
+        // const filename = `${className.replace(/\s+/g, '_')}_${attendanceReport.reportDate.replace(/[\s,]+/g, '_')}.pdf`;
+        // const url = await uploadPDF(buffer, filename);
+        // console.log('Uploaded to Cloudinary(update route):', url);
 
         const query = {}
 
-        if(attendance) query.attendance = attendance
+        if(rawAttendance.attendance) query.attendance = rawAttendance.attendance
         if(reportName) query.reportName = reportName 
         if(reportType) query.reportType = reportType   
-
 
         const reportInfo = await attendanceModel.updateOne({_id: reportId},{$set: query})
 
     
         const reportDate = formattedDate()
-    if(reportDate == attendanceReport.reportDate){
+    if(reportDate == populatedAttendance.reportDate){
 
         let absnetStudents = []
     
-         attendance.map((student) => {
+         studentAttendance.map((student) => {
             if(student.status == 'absent')
             {
                 absnetStudents.push({
@@ -133,12 +183,12 @@ const updateAttendance = async (req,res) => {
            const message = formatedMessage(reportDate,absnetStudents,"Today's Absent Students(Updated)")
            const client = getClient()
           const msgResposne = await client.sendMessage(groupId,message)
-           console.log(`Attendacne update Message response:`,msgResposne) 
+        //    console.log(`Attendacne update Message response:`,msgResposne) 
         }
     }
 
 
-        if(reportInfo.matchedCount > 0) return res.status(200).json({msg: 'Attendance report updated successfuly', query: query ,pdfURL: url}, )
+        if(reportInfo.matchedCount > 0) return res.status(200).json({msg: 'Attendance report updated successfuly', updatedReport: populatedAttendance}, )
 
                 
         } catch (error) {
@@ -159,9 +209,9 @@ const deleteAttendance = async(req,res) => {
         const url = reportPDF.pdfURL
 
 
-        deletePDFByUrl(url)
-        .then((res) => console.log(`Deleted:`,res))
-        .catch((err) => console.log('Error:', err))
+        // deletePDFByUrl(url)
+        // .then((res) => console.log(`Deleted:`,res))
+        // .catch((err) => console.log('Error:', err))
 
         const reportInfo = await attendanceModel.deleteOne({_id: reportId})
         
