@@ -14,6 +14,11 @@ const studentSchema = mongoose.Schema({
             type: String,
             required: true
         },
+        absentCount:{
+            type: Number,
+            default: 0,
+            min: 0
+        },
          classId:{
             type: mongoose.Schema.Types.ObjectId,
             required: true,

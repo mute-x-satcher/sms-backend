@@ -4,7 +4,8 @@ const uploadPDF = require('../cloudinary/uploadToCloudinary');
 const deletePDFByUrl = require('../cloudinary/deleteFromCloudinary')
 const formattedDate = require('../date_and_time/formatedDate')
 const formatedMessage = require('../whatsapp-web/formattedMessage')
-const {getClient} = require('../whatsapp-web/client')
+const {getClient} = require('../whatsapp-web/client');
+const studnetModel = require('../models/studentModel');
 
 
 const createAttendance = async (req,res) => {
@@ -36,6 +37,7 @@ const createAttendance = async (req,res) => {
             ...entry.studentId,
             status: entry.status
             }))
+
             populatedAttendance.attendance = flattened
             const studentAttendance = populatedAttendance.attendance
             // console.log(populatedAttendance.attendance)
@@ -54,12 +56,20 @@ const createAttendance = async (req,res) => {
         {
             absnetStudents.push({
                 studentName: student.studentName,
-                rollNumber: student.rollNumber
+                rollNumber: student.rollNumber,
+                id: student._id
             })
         }
      })
 
      const message = formatedMessage(reportDate,absnetStudents,"Today's Absent Students")
+
+     absnetStudents.map( async (student) => {
+         await studnetModel.updateOne({_id: student.id},{$inc: {absentCount: 1}})
+     })
+
+     
+
 
      if(absnetStudents.length > 0){
          const client = getClient()
@@ -113,7 +123,7 @@ const updateAttendance = async (req,res) => {
         const rawAttendance = await attendanceModel.findOne({_id: reportId})
         const populatedAttendance = await attendanceModel.findOne({_id: reportId}).populate({
             path: 'attendance.studentId',
-            select: 'studentName rollNumber -_id'
+            select: 'studentName rollNumber _id'
         }).lean() 
         // console.log(populatedAttendance.attendance)
         
@@ -124,26 +134,54 @@ const updateAttendance = async (req,res) => {
             populatedAttendance.attendance = flattened
             const studentAttendance = populatedAttendance.attendance
         
+            const studentsToIncrement = []
+            const studentsToDecrement = []
+
         for(const student of studentAttendance){
             
             for(const updatedStudent of updatedAttendance){
 
                 if(student.rollNumber === updatedStudent.rollNumber)
                 {
+                    
+                    if(student.status == 'present' && updatedStudent.status == 'absent')
+                    {      
+                            studentsToIncrement.push(student)
+                    }else if(student.status == 'absent' && updatedStudent.status == 'present')
+                    {    
+                            studentsToDecrement.push(student)
+                    }
+
                     student.studentName = updatedStudent.studentName
                     student.status = updatedStudent.status
 
                 }
-
             }
-
         }
         
+        console.log('Increment Students:' , studentsToIncrement)
+        console.log('Decrement Students:' , studentsToDecrement)
+
+        studentsToIncrement.map(async (student) => {
+            await studnetModel.updateOne(
+                {_id: student._id.toString()},
+                {$inc: {absentCount: 1}}
+            )
+    })
+
+        studentsToDecrement.map( async (student) => {
+            await studnetModel.updateOne(
+                {_id: student._id.toString(),absentCount: {$gt: 0}},
+                {$inc: {absentCount: -1}}
+            )
+      
+            })
+
+
         for(const student of rawAttendance.attendance){
             
             for(const updatedStudent of updatedAttendance)
-            {       console.log("old status: ",student.status)
-                    console.log("new status: ",updatedStudent.status)
+            {      
                     if(student.studentId.toString() == updatedStudent.studentId)
                     student.status = updatedStudent.status   
             }
@@ -197,6 +235,28 @@ const updateAttendance = async (req,res) => {
 
 }
 
+const bunkReport = async (req,res) => {
+        try {
+            const {bunkList,groupId, lectureName} = req.body
+            const date = formattedDate()
+            const message = formatedMessage(date,bunkList,"Today's Bunk List",lectureName)
+            const client = getClient()
+
+            // console.log(bunkList)
+
+            // await attendanceModel.updateOne
+
+             const msgResposne = await client.sendMessage(groupId,message)
+        //    console.log(`Bunk report Message response:`,msgResposne) 
+
+            return res.status(200).json({msg: 'Bunklist successfuly submitted'})
+
+        } catch (error) {
+            console.log(`studentController-bunkReport Error: ${error}`)
+        }
+
+}
+
 
 const deleteAttendance = async(req,res) => {
 
@@ -204,11 +264,30 @@ const deleteAttendance = async(req,res) => {
         
         const {reportId} = req.body
 
-        const reportPDF = await attendanceModel.findOne({_id: reportId})
+        const populatedReportPDF = await attendanceModel.findOne({_id: reportId}).populate({
+            path: 'attendance.studentId',
+            select: '_id status'
+        }).lean()
 
-        const url = reportPDF.pdfURL
+        const flattened = populatedReportPDF.attendance.map( entry => ({  
+                ...entry.studentId,
+                status: entry.status
+            
+        }))
 
+        const studentsToDecrement = []
+        flattened.map((student) => {
+            if(student.status == 'absent') studentsToDecrement.push(student)
+        })
+        
+        studentsToDecrement.map(async (student) => {
+            await studnetModel.updateOne(
+                {_id: student._id.toString() , absentCount: {$gt: 0}},
+                {$inc: {absentCount: -1}}
+            )
+        })
 
+        // const url = reportPDF.pdfURL
         // deletePDFByUrl(url)
         // .then((res) => console.log(`Deleted:`,res))
         // .catch((err) => console.log('Error:', err))
@@ -224,4 +303,4 @@ const deleteAttendance = async(req,res) => {
 
 
 
-module.exports = {createAttendance,updateAttendance,getAttendance,deleteAttendance}
+module.exports = {createAttendance,updateAttendance,getAttendance,bunkReport,deleteAttendance}

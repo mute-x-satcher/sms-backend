@@ -79,25 +79,6 @@ const updateStudent = async (req,res) => {
 
 }
 
-const bunkReport = async (req,res) => {
-        try {
-            const {bunkList,groupId, lectureName} = req.body
-            const date = formattedDate()
-            const message = getFormattedMessage(date,bunkList,"Today's Bunk List",lectureName)
-            const client = getClient()
-
-             const msgResposne = await client.sendMessage(groupId,message)
-        //    console.log(`Bunk report Message response:`,msgResposne) 
-
-            return res.status(200).json({msg: 'Bunklist successfuly submitted'})
-
-        } catch (error) {
-            console.log(`studentController-bunkReport Error: ${error}`)
-        }
-
-}
-
-
 const deleteStudent = async (req,res) => {
 
    try {
@@ -120,4 +101,4 @@ const deleteStudent = async (req,res) => {
 
 }
 
-module.exports = {createStudent,getStudent,updateStudent,bunkReport,deleteStudent}
+module.exports = {createStudent,getStudent,updateStudent,deleteStudent}

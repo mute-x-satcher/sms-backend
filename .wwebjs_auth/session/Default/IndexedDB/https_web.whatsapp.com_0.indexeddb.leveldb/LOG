@@ -1,13 +1,15 @@
-2025/06/21-15:52:41.516 ccc Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2025/06/21-15:52:41.517 ccc Recovering log #42
-2025/06/21-15:52:41.584 ccc Reusing old log C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000042.log 
-2025/06/21-15:52:44.220 ccc Level-0 table #47: started
-2025/06/21-15:52:44.250 ccc Level-0 table #47: 559840 bytes OK
-2025/06/21-15:52:44.254 ccc Delete type=0 #42
-2025/06/21-15:52:44.271 ccc Manual compaction at level-0 from '\x00\x19\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x1a\x00\x00\x00' @ 0 : 0; will stop at (end)
-2025/06/21-15:52:46.568 ccc Compacting 1@1 + 1@2 files
-2025/06/21-15:52:46.657 ccc Generated table #48@1: 28768 keys, 1489754 bytes
-2025/06/21-15:52:46.657 ccc Compacted 1@1 + 1@2 files => 1489754 bytes
-2025/06/21-15:52:46.660 ccc compacted to: files[ 0 0 1 0 0 0 0 ]
-2025/06/21-15:52:46.660 ccc Delete type=2 #44
-2025/06/21-15:52:46.660 ccc Delete type=2 #47
+2025/06/21-23:30:22.198 2850 Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/06/21-23:30:22.198 2850 Recovering log #262
+2025/06/21-23:30:22.300 2850 Reusing old log C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000262.log 
+2025/06/21-23:30:24.628 b98 Level-0 table #268: started
+2025/06/21-23:30:24.646 b98 Level-0 table #268: 417349 bytes OK
+2025/06/21-23:30:24.650 b98 Delete type=0 #262
+2025/06/21-23:30:24.650 1040 Manual compaction at level-0 from '\x00V\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00W\x00\x00\x00' @ 0 : 0; will stop at (end)
+2025/06/21-23:30:26.955 b98 Compacting 1@1 + 2@2 files
+2025/06/21-23:30:27.072 b98 Generated table #269@1: 56125 keys, 2219031 bytes
+2025/06/21-23:30:27.138 b98 Generated table #270@1: 41038 keys, 1085305 bytes
+2025/06/21-23:30:27.138 b98 Compacted 1@1 + 2@2 files => 3304336 bytes
+2025/06/21-23:30:27.141 b98 compacted to: files[ 0 0 2 0 0 0 0 ]
+2025/06/21-23:30:27.141 b98 Delete type=2 #264
+2025/06/21-23:30:27.141 b98 Delete type=2 #265
+2025/06/21-23:30:27.141 b98 Delete type=2 #268
