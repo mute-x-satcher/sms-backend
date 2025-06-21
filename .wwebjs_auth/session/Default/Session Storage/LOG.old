@@ -1,3 +1,2 @@
-2025/06/21-13:57:29.510 2774 Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\Session Storage/MANIFEST-000001
-2025/06/21-13:57:29.510 2774 Recovering log #3
-2025/06/21-13:57:29.511 2774 Reusing old log C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\Session Storage/000003.log 
+2025/06/21-15:51:54.126 fd4 Creating DB C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\Session Storage since it was missing.
+2025/06/21-15:51:54.157 fd4 Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\Session Storage/MANIFEST-000001
