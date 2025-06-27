@@ -23,7 +23,7 @@ const checkGroup = async (req,res,next) => {
         console.log('updated:',groupName)
         req.groupInfo = {groupId,groupName}
 
-        client.sendMessage(groupId,"🤖 Classmark Whatsapp bot initiated in this group. From today this Classmark bot will send daily attendance and bunk reports, Thank you")
+        await client.sendMessage(groupId,"🤖 Classmark Whatsapp bot initiated in this group. From today this Classmark bot will send daily attendance and bunk reports\nThank you.")
         next()
 
     } catch (error) {

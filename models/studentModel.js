@@ -19,6 +19,11 @@ const studentSchema = mongoose.Schema({
             default: 0,
             min: 0
         },
+        bunkCount:{
+            type: Number,
+            default: 0,
+            min: 0
+        },
          classId:{
             type: mongoose.Schema.Types.ObjectId,
             required: true,

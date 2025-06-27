@@ -61,16 +61,16 @@ const createAttendance = async (req, res) => {
             }
         })
 
-        const message = formatedMessage(reportDate, absnetStudents, "Today's Absent Students")
-
+        
         absnetStudents.map(async (student) => {
             await studnetModel.updateOne({ _id: student.id }, { $inc: { absentCount: 1 } })
         })
-
-
-
-
+        
+        
+        
+        
         if (absnetStudents.length > 0) {
+            const message = formatedMessage(reportDate, absnetStudents, "Today's Absent Students")
             const client = getClient()
             const msgResposne = await client.sendMessage(groupId, message)
             //    console.log(`Attendacne create Message response:`,msgResposne) 
@@ -246,35 +246,29 @@ const bunkReport = async (req, res) => {
 
         console.log(date)
 
-        const reportExist = await attendanceModel.findOne({classId: classId , reportDate: {$regex: date}})
+        // const reportExist = await attendanceModel.findOne({classId: classId , reportDate: {$regex: date}})
 
-        console.log(reportExist)
+        // console.log(reportExist)
 
-        if(!reportExist) return res.status(409).json({msg: "Mark today's attendance before generating the bunk report"})
+        // if(!reportExist) return res.status(409).json({msg: "Mark today's attendance before generating the bunk report"})
 
-        if (lectureName === 'All lectures') {
-
-            bunkList.map(async (student) => {
-             await attendanceModel.updateOne(
-                    {
-                        classId: classId,reportDate: date, "attendance.studentId": student.studentId
-                    },
-                    { $set: { "attendance.$.status": 'absent' } })
+            // bunkList.map(async (student) => {
+            //  await attendanceModel.updateOne(
+            //         {
+            //             classId: classId,reportDate: date, "attendance.studentId": student.studentId
+            //         },
+            //         { $set: { "attendance.$.status": 'absent' } })
             
-                })
+            //     })
 
             
 
             bunkList.map(async (student) => {
                 await studnetModel.updateOne(
                     { _id: student.studentId },
-                    { $inc: { absentCount: 1 } }
+                    { $inc: { bunkCount: 1 } }
                 )
             })
-        }
-
-
-
         // await attendanceModel.updateOne
 
         const msgResposne = await client.sendMessage(groupId, message)

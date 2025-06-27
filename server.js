@@ -23,4 +23,6 @@ app.use('/class',classRoutes)
 app.use('/student',studentRoutes)
 app.use('/attendance',attendanceRoutes)
 
+app.get('/',(req,res) => res.send('Hey I am localhost://3000'))
+
 app.listen(process.env.PORT,'0.0.0.0',()=> console.log(`Server started on PORT: ${process.env.PORT}`))
