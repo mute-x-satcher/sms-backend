@@ -2,7 +2,7 @@ const {verifyToken} = require('../jwt/jwt')
 
 const tokenMiddleware = async (req,res,next) => {
 
-
+        console.log('I am in tokenMiddleware')
         const authToken = req.headers.authorization?.split(" ")[1]
         
         if(!authToken) return res.status(402).json({msg: 'Please provide a authToken'})

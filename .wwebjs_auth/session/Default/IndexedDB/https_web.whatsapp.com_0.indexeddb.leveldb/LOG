@@ -1,14 +1,15 @@
-2025/06/22-20:02:20.071 7c4 Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2025/06/22-20:02:20.072 7c4 Recovering log #61
-2025/06/22-20:02:20.090 7c4 Reusing old log C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000061.log 
-2025/06/22-20:02:22.048 7c4 Manual compaction at level-0 from '\x00\x1d\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x1e\x00\x00\x00' @ 0 : 0; will stop at (end)
-2025/06/22-20:02:22.052 7c4 Level-0 table #67: started
-2025/06/22-20:02:22.062 7c4 Level-0 table #67: 102601 bytes OK
-2025/06/22-20:02:22.065 7c4 Delete type=0 #61
-2025/06/22-20:02:22.066 7c4 Manual compaction at level-0 from '\x00\x1e\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x1f\x00\x00\x00' @ 0 : 0; will stop at (end)
-2025/06/22-20:02:24.319 31c0 Compacting 1@1 + 1@2 files
-2025/06/22-20:02:24.399 31c0 Generated table #68@1: 50571 keys, 2076537 bytes
-2025/06/22-20:02:24.399 31c0 Compacted 1@1 + 1@2 files => 2076537 bytes
-2025/06/22-20:02:24.404 31c0 compacted to: files[ 0 0 1 0 0 0 0 ]
-2025/06/22-20:02:24.404 31c0 Delete type=2 #64
-2025/06/22-20:02:24.404 31c0 Delete type=2 #67
+2025/06/26-22:34:59.818 434 Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/06/26-22:34:59.818 434 Recovering log #114
+2025/06/26-22:34:59.864 434 Reusing old log C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000114.log 
+2025/06/26-22:35:03.749 950 Level-0 table #120: started
+2025/06/26-22:35:03.766 950 Level-0 table #120: 285450 bytes OK
+2025/06/26-22:35:03.770 950 Delete type=0 #114
+2025/06/26-22:35:03.770 950 Manual compaction at level-0 from '\x00.\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00/\x00\x00\x00' @ 0 : 0; will stop at (end)
+2025/06/26-22:35:06.501 2abc Compacting 1@1 + 2@2 files
+2025/06/26-22:35:06.630 2abc Generated table #121@1: 46850 keys, 2204905 bytes
+2025/06/26-22:35:06.684 2abc Generated table #122@1: 19479 keys, 373027 bytes
+2025/06/26-22:35:06.684 2abc Compacted 1@1 + 2@2 files => 2577932 bytes
+2025/06/26-22:35:06.689 2abc compacted to: files[ 0 0 2 0 0 0 0 ]
+2025/06/26-22:35:06.689 2abc Delete type=2 #116
+2025/06/26-22:35:06.689 2abc Delete type=2 #117
+2025/06/26-22:35:06.689 2abc Delete type=2 #120
