@@ -38,6 +38,11 @@ const attendanceReportSchema = mongoose.Schema({
             type: [attendanceSchema],
             required: true
         },
+        pdfURL:{
+            type: String,
+            required: false,
+            default: './pdf'
+        },
         createdAt: {
             type: Date,
             default: Date.now     

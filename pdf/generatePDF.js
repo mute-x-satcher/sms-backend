@@ -5,7 +5,9 @@ function generateHTML(data) {
     <tr>
       <td>${student.rollNumber}</td>
       <td>${student.studentName}</td>
-      <td class="${student.status === 'absent' ? 'status-absent' : 'status-present'}">${student.status}</td>
+      <td class="${   student.status === 'absent' ? 'status-absent' :
+    student.status === 'leave' ? 'status-leave' :
+    'status-present'}">${student.status}</td>
     </tr>`).join('');
 
   return `
@@ -59,7 +61,10 @@ function generateHTML(data) {
             color: #2e7d32; /* green */
             font-weight: bold;
           }
-
+          .status-leave {
+            color: #FFFF00; /* green */
+            font-weight: bold;
+          }
           .status-absent {
             color: #c62828; /* red */
             font-weight: bold;

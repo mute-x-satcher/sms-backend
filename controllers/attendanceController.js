@@ -14,15 +14,33 @@ const createAttendance = async (req, res) => {
         const { classId, groupId, className, reportType, reportName, attendance } = req.body
         // console.log(req.body)
         const reportDate = formattedDate()
-        const data = req.body
-        data.reportDate = reportDate
+    
+        // const pdfData = {
+        //     className,
+        //     reportDate,
+        //     reportName,
+        //     attendance,
+        // }
+
+        // const buffer = await generatePDFBuffer(pdfData);
+        // const filename = `${pdfData.className.replace(/\s+/g, '_')}_${reportDate.replace(/[\s,]+/g, '_')}.pdf`;
+        // const url = await uploadPDF(buffer, filename);
+        // console.log('Uploaded to Cloudinary:', url);
+      
+        
+        // attendance.forEach((student) => {
+        //     delete student.studentName
+        //     delete student.rollNumber
+        // })
+
+      
         const attendanceInfo = await attendanceModel.create({
             classId: classId,
             reportDate: reportDate,
             reportType: reportType,
             reportName: reportName,
-            attendance: attendance
-
+            attendance: attendance,
+         
         })
 
         const reportId = attendanceInfo._id
@@ -43,13 +61,6 @@ const createAttendance = async (req, res) => {
         // console.log(populatedAttendance.attendance)
 
         let absnetStudents = []
-
-        // const buffer = await generatePDFBuffer(data);
-        // const filename = `${data.className.replace(/\s+/g, '_')}_${reportDate.replace(/[\s,]+/g, '_')}.pdf`;
-        // const url = await uploadPDF(buffer, filename);
-        // console.log('Uploaded to Cloudinary:', url);
-
-
 
         studentAttendance.map((student) => {
             if (student.status == 'absent') {
@@ -133,6 +144,11 @@ const updateAttendance = async (req, res) => {
         populatedAttendance.attendance = flattened
         const studentAttendance = populatedAttendance.attendance
 
+        // const buffer = await generatePDFBuffer(populatedAttendance);
+        // const filename = `${className.replace(/\s+/g, '_')}_${populatedAttendance.reportDate.replace(/[\s,]+/g, '_')}.pdf`;
+        // const url = await uploadPDF(buffer, filename);
+        // console.log('Uploaded to Cloudinary(update route):', url);
+
         const studentsToIncrement = []
         const studentsToDecrement = []
 
@@ -187,16 +203,13 @@ const updateAttendance = async (req, res) => {
             }
 
         }
-        // const buffer = await generatePDFBuffer(attendanceReport);
-        // const filename = `${className.replace(/\s+/g, '_')}_${attendanceReport.reportDate.replace(/[\s,]+/g, '_')}.pdf`;
-        // const url = await uploadPDF(buffer, filename);
-        // console.log('Uploaded to Cloudinary(update route):', url);
-
+      
         const query = {}
 
         if (rawAttendance.attendance) query.attendance = rawAttendance.attendance
         if (reportName) query.reportName = reportName
         if (reportType) query.reportType = reportType
+       
 
         const reportInfo = await attendanceModel.updateOne({ _id: reportId }, { $set: query })
 
@@ -282,6 +295,24 @@ const bunkReport = async (req, res) => {
 
 }
 
+const generatePDF = async (req,res) => {
+    
+    try {
+        
+    const {report,className} = req.body
+    report.className = className    
+    const buffer = await generatePDFBuffer(report)
+
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename=AttendanceReport.pdf');
+    res.send(buffer);
+        
+    } catch (error) {
+        console.log(`attendnaceController-generatePDF Error: ${error}`)        
+    }
+   
+}
+
 
 const deleteAttendance = async (req, res) => {
 
@@ -312,10 +343,10 @@ const deleteAttendance = async (req, res) => {
             )
         })
 
-        // const url = reportPDF.pdfURL
-        // deletePDFByUrl(url)
-        // .then((res) => console.log(`Deleted:`,res))
-        // .catch((err) => console.log('Error:', err))
+        const url = populatedReportPDF.pdfURL
+        deletePDFByUrl(url)
+        .then((res) => console.log(`Deleted:`,res))
+        .catch((err) => console.log('Error:', err))
 
         const reportInfo = await attendanceModel.deleteOne({ _id: reportId })
 
@@ -328,4 +359,4 @@ const deleteAttendance = async (req, res) => {
 
 
 
-module.exports = { createAttendance, updateAttendance, getAttendance, bunkReport, deleteAttendance }
+module.exports = { createAttendance, updateAttendance, getAttendance, bunkReport, generatePDF,deleteAttendance }
