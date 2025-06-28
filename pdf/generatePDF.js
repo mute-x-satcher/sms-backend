@@ -62,7 +62,7 @@ function generateHTML(data) {
             font-weight: bold;
           }
           .status-leave {
-            color: #FFFF00; /* green */
+            color: #D5B60A; /* yellow */
             font-weight: bold;
           }
           .status-absent {

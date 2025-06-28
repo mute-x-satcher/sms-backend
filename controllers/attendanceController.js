@@ -1,5 +1,6 @@
 const attendanceModel = require('../models/attendanceModel')
 const generatePDFBuffer = require('../pdf/generatePDF');
+const { MessageMedia } = require('whatsapp-web.js');
 const uploadPDF = require('../cloudinary/uploadToCloudinary');
 const deletePDFByUrl = require('../cloudinary/deleteFromCloudinary')
 const formattedDate = require('../date_and_time/formatedDate')
@@ -14,55 +15,31 @@ const createAttendance = async (req, res) => {
         const { classId, groupId, className, reportType, reportName, attendance } = req.body
         // console.log(req.body)
         const reportDate = formattedDate()
-    
-        // const pdfData = {
-        //     className,
-        //     reportDate,
-        //     reportName,
-        //     attendance,
-        // }
+        const client = getClient()
+        const pdfData = {
+            className,
+            reportDate,
+            reportName,
+            attendance,
+        }
 
-        // const buffer = await generatePDFBuffer(pdfData);
-        // const filename = `${pdfData.className.replace(/\s+/g, '_')}_${reportDate.replace(/[\s,]+/g, '_')}.pdf`;
-        // const url = await uploadPDF(buffer, filename);
-        // console.log('Uploaded to Cloudinary:', url);
-      
+        const pdfBuffer = await generatePDFBuffer(pdfData);
+
+        const media = new MessageMedia(
+            'application/pdf',
+            pdfBuffer.toString('base64'),
+            `${className}-${reportDate}.pdf`
+        );
+
+        await client.sendMessage(groupId, media, {
+        caption: `${reportDate}\nToday's attendannce sheet.`
+        });
+
         
-        // attendance.forEach((student) => {
-        //     delete student.studentName
-        //     delete student.rollNumber
-        // })
-
-      
-        const attendanceInfo = await attendanceModel.create({
-            classId: classId,
-            reportDate: reportDate,
-            reportType: reportType,
-            reportName: reportName,
-            attendance: attendance,
-         
-        })
-
-        const reportId = attendanceInfo._id
-
-        const populatedAttendance = await attendanceModel.findOne({ _id: reportId }).populate({
-            path: 'attendance.studentId',
-            select: 'studentName rollNumber _id'
-        }).lean()
-        // console.log(populatedAttendance.attendance)
-
-        const flattened = populatedAttendance.attendance.map(entry => ({
-            ...entry.studentId,
-            status: entry.status
-        }))
-
-        populatedAttendance.attendance = flattened
-        const studentAttendance = populatedAttendance.attendance
-        // console.log(populatedAttendance.attendance)
 
         let absnetStudents = []
 
-        studentAttendance.map((student) => {
+        attendance.map((student) => {
             if (student.status == 'absent') {
                 absnetStudents.push({
                     studentName: student.studentName,
@@ -71,28 +48,62 @@ const createAttendance = async (req, res) => {
                 })
             }
         })
-
         
         absnetStudents.map(async (student) => {
             await studnetModel.updateOne({ _id: student.id }, { $inc: { absentCount: 1 } })
         })
-        
-        
-        
-        
+
         if (absnetStudents.length > 0) {
             const message = formatedMessage(reportDate, absnetStudents, "Today's Absent Students")
-            const client = getClient()
             const msgResposne = await client.sendMessage(groupId, message)
             //    console.log(`Attendacne create Message response:`,msgResposne) 
         }
 
+        
+        // const buffer = await generatePDFBuffer(pdfData);
+        // const filename = `${pdfData.className.replace(/\s+/g, '_')}_${reportDate.replace(/[\s,]+/g, '_')}.pdf`;
+        // const url = await uploadPDF(buffer, filename);
+        // console.log('Uploaded to Cloudinary:', url);
 
-        return res.status(200).json({ msg: 'Attendance report successfuly created', attendanceReport: populatedAttendance })
+
+        attendance.forEach((student) => {
+            delete student.studentName
+            delete student.rollNumber
+        })
+
+        const attendanceInfo = await attendanceModel.create({
+            classId: classId,
+            reportDate: reportDate,
+            reportType: reportType,
+            reportName: reportName,
+            attendance: attendance,
+
+        })
+
+        // const reportId = attendanceInfo._id
+
+        // const populatedAttendance = await attendanceModel.findOne({ _id: reportId }).populate({
+        //     path: 'attendance.studentId',
+        //     select: 'studentName rollNumber _id'
+        // }).lean()
+        // // console.log(populatedAttendance.attendance)
+
+        // const flattened = populatedAttendance.attendance.map(entry => ({
+        //     ...entry.studentId,
+        //     status: entry.status
+        // }))
+
+        // populatedAttendance.attendance = flattened
+        // const studentAttendance = populatedAttendance.attendance
+        // // console.log(populatedAttendance.attendance)
+
+
+
+        return res.status(200).json({ msg: 'Attendance report successfuly created'})
 
     } catch (error) {
         console.log(`attendanceController-createAttendance Error: ${error}`, error)
-        return res.status(400).json({ err_msg: 'Faild to create Attendance report', error: error })
+        return res.status(500).json({ err_msg: 'Faild to create Attendance report', error: error })
     }
 
 }
@@ -160,12 +171,11 @@ const updateAttendance = async (req, res) => {
 
                     if (student.status == 'present' && updatedStudent.status == 'absent') {
                         studentsToIncrement.push(student)
-                    }else if(student.status == 'leave' && updatedStudent.status == 'absent'){
+                    } else if (student.status == 'leave' && updatedStudent.status == 'absent') {
                         studentsToIncrement.push(student)
-                    }else if(student.status == 'absent' && updatedStudent.status == 'leave'){
+                    } else if (student.status == 'absent' && updatedStudent.status == 'leave') {
                         studentsToDecrement.push(student)
-                    }
-                     else if (student.status == 'absent' && updatedStudent.status == 'present') {
+                    }else if (student.status == 'absent' && updatedStudent.status == 'present') {
                         studentsToDecrement.push(student)
                     }
 
@@ -203,19 +213,31 @@ const updateAttendance = async (req, res) => {
             }
 
         }
-      
+
         const query = {}
 
         if (rawAttendance.attendance) query.attendance = rawAttendance.attendance
         if (reportName) query.reportName = reportName
         if (reportType) query.reportType = reportType
-       
+
 
         const reportInfo = await attendanceModel.updateOne({ _id: reportId }, { $set: query })
 
 
         const reportDate = formattedDate()
         if (reportDate == populatedAttendance.reportDate) {
+            const client = getClient()
+            const pdfBuffer = await generatePDFBuffer(populatedAttendance);
+
+        const media = new MessageMedia(
+            'application/pdf',
+            pdfBuffer.toString('base64'),
+            `${className}-${reportDate}-Updated.pdf`
+        );
+
+        await client.sendMessage(groupId, media, {
+        caption: `${reportDate}\nToday's attendannce sheet.`
+        });
 
             let absnetStudents = []
 
@@ -231,7 +253,6 @@ const updateAttendance = async (req, res) => {
 
             if (absnetStudents.length > 0) {
                 const message = formatedMessage(reportDate, absnetStudents, "Today's Absent Students(Updated)")
-                const client = getClient()
                 const msgResposne = await client.sendMessage(groupId, message)
                 //    console.log(`Attendacne update Message response:`,msgResposne) 
             }
@@ -249,7 +270,7 @@ const updateAttendance = async (req, res) => {
 
 const bunkReport = async (req, res) => {
     try {
-        const { bunkList, groupId,classId,lectureName } = req.body
+        const { bunkList, groupId, classId, lectureName } = req.body
         const date = formattedDate()
         const message = formatedMessage(date, bunkList, "Today's Bunk List", lectureName)
         const client = getClient()
@@ -265,23 +286,23 @@ const bunkReport = async (req, res) => {
 
         // if(!reportExist) return res.status(409).json({msg: "Mark today's attendance before generating the bunk report"})
 
-            // bunkList.map(async (student) => {
-            //  await attendanceModel.updateOne(
-            //         {
-            //             classId: classId,reportDate: date, "attendance.studentId": student.studentId
-            //         },
-            //         { $set: { "attendance.$.status": 'absent' } })
-            
-            //     })
+        // bunkList.map(async (student) => {
+        //  await attendanceModel.updateOne(
+        //         {
+        //             classId: classId,reportDate: date, "attendance.studentId": student.studentId
+        //         },
+        //         { $set: { "attendance.$.status": 'absent' } })
 
-            
+        //     })
 
-            bunkList.map(async (student) => {
-                await studnetModel.updateOne(
-                    { _id: student.studentId },
-                    { $inc: { bunkCount: 1 } }
-                )
-            })
+
+
+        bunkList.map(async (student) => {
+            await studnetModel.updateOne(
+                { _id: student.studentId },
+                { $inc: { bunkCount: 1 } }
+            )
+        })
         // await attendanceModel.updateOne
 
         const msgResposne = await client.sendMessage(groupId, message)
@@ -295,22 +316,22 @@ const bunkReport = async (req, res) => {
 
 }
 
-const generatePDF = async (req,res) => {
-    
-    try {
-        
-    const {report,className} = req.body
-    report.className = className    
-    const buffer = await generatePDFBuffer(report)
+const generatePDF = async (req, res) => {
 
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'attachment; filename=AttendanceReport.pdf');
-    res.send(buffer);
-        
+    try {
+
+        const { report, className } = req.body
+        report.className = className
+        const buffer = await generatePDFBuffer(report)
+
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'attachment; filename=AttendanceReport.pdf');
+        res.send(buffer);
+
     } catch (error) {
-        console.log(`attendnaceController-generatePDF Error: ${error}`)        
+        console.log(`attendnaceController-generatePDF Error: ${error}`)
     }
-   
+
 }
 
 
@@ -343,10 +364,10 @@ const deleteAttendance = async (req, res) => {
             )
         })
 
-        const url = populatedReportPDF.pdfURL
-        deletePDFByUrl(url)
-        .then((res) => console.log(`Deleted:`,res))
-        .catch((err) => console.log('Error:', err))
+        // const url = populatedReportPDF.pdfURL
+        // deletePDFByUrl(url)
+        //     .then((res) => console.log(`Deleted:`, res))
+        //     .catch((err) => console.log('Error:', err))
 
         const reportInfo = await attendanceModel.deleteOne({ _id: reportId })
 
@@ -359,4 +380,4 @@ const deleteAttendance = async (req, res) => {
 
 
 
-module.exports = { createAttendance, updateAttendance, getAttendance, bunkReport, generatePDF,deleteAttendance }
+module.exports = { createAttendance, updateAttendance, getAttendance, bunkReport, generatePDF, deleteAttendance }
