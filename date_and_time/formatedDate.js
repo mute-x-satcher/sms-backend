@@ -1,17 +1,22 @@
 const formattedDate = () => {
-    const now = new Date(Date.now());
+const today = new Date();
 
-const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const dayName = days[now.getDay()];
+const weekday = today.toLocaleDateString('en-US', { weekday: 'long' });
+const day = today.toLocaleDateString('en-GB', { day: '2-digit' });
+const month = today.toLocaleDateString('en-GB', { month: 'short' });
+const year = today.getFullYear();
 
-const day = String(now.getDate()).padStart(2, '0');
-const month = String(now.getMonth() + 1).padStart(2, '0');
-const year = now.getFullYear();
-
-const formattedDate = `${dayName}, ${day}-${month}-${year}`;
+const formattedDate = `${weekday}, ${day} ${month} ${year}`;
+// const dateObj = {
+//     formattedDate,
+//     day,
+//     month,
+//     year
+// }
 
 return formattedDate
 
 }
+formattedDate()
 
 module.exports = formattedDate

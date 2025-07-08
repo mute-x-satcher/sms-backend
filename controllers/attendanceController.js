@@ -4,6 +4,7 @@ const { MessageMedia } = require('whatsapp-web.js');
 const uploadPDF = require('../cloudinary/uploadToCloudinary');
 const deletePDFByUrl = require('../cloudinary/deleteFromCloudinary')
 const formattedDate = require('../date_and_time/formatedDate')
+const getDaysInMonth = require('../date_and_time/getDays')
 const formatedMessage = require('../whatsapp-web/formattedMessage')
 const { getClient } = require('../whatsapp-web/client');
 const studnetModel = require('../models/studentModel');
@@ -32,10 +33,10 @@ const createAttendance = async (req, res) => {
         );
 
         await client.sendMessage(groupId, media, {
-        caption: `${reportDate}\nToday's attendannce sheet.`
+            caption: `${reportDate}\nToday's attendannce sheet.`
         });
 
-        
+
 
         let absnetStudents = []
 
@@ -48,7 +49,7 @@ const createAttendance = async (req, res) => {
                 })
             }
         })
-        
+
         absnetStudents.map(async (student) => {
             await studnetModel.updateOne({ _id: student.id }, { $inc: { absentCount: 1 } })
         })
@@ -59,7 +60,7 @@ const createAttendance = async (req, res) => {
             //    console.log(`Attendacne create Message response:`,msgResposne) 
         }
 
-        
+
         // const buffer = await generatePDFBuffer(pdfData);
         // const filename = `${pdfData.className.replace(/\s+/g, '_')}_${reportDate.replace(/[\s,]+/g, '_')}.pdf`;
         // const url = await uploadPDF(buffer, filename);
@@ -99,7 +100,7 @@ const createAttendance = async (req, res) => {
 
 
 
-        return res.status(200).json({ msg: 'Attendance report successfuly created'})
+        return res.status(200).json({ msg: 'Attendance report successfuly created' })
 
     } catch (error) {
         console.log(`attendanceController-createAttendance Error: ${error}`, error)
@@ -175,7 +176,7 @@ const updateAttendance = async (req, res) => {
                         studentsToIncrement.push(student)
                     } else if (student.status == 'absent' && updatedStudent.status == 'leave') {
                         studentsToDecrement.push(student)
-                    }else if (student.status == 'absent' && updatedStudent.status == 'present') {
+                    } else if (student.status == 'absent' && updatedStudent.status == 'present') {
                         studentsToDecrement.push(student)
                     }
 
@@ -226,18 +227,19 @@ const updateAttendance = async (req, res) => {
 
         const reportDate = formattedDate()
         if (reportDate == populatedAttendance.reportDate) {
+            populatedAttendance.className = className
             const client = getClient()
             const pdfBuffer = await generatePDFBuffer(populatedAttendance);
 
-        const media = new MessageMedia(
-            'application/pdf',
-            pdfBuffer.toString('base64'),
-            `${className}-${reportDate}-Updated.pdf`
-        );
+            const media = new MessageMedia(
+                'application/pdf',
+                pdfBuffer.toString('base64'),
+                `${className}-${reportDate}-Updated.pdf`
+            );
 
-        await client.sendMessage(groupId, media, {
-        caption: `${reportDate}\nToday's attendannce sheet.`
-        });
+            await client.sendMessage(groupId, media, {
+                caption: `${reportDate}\nToday's attendannce sheet.`
+            });
 
             let absnetStudents = []
 
@@ -271,7 +273,7 @@ const updateAttendance = async (req, res) => {
 const bunkReport = async (req, res) => {
     try {
         const { bunkList, groupId, classId, lectureName } = req.body
-        const date = formattedDate()
+        const { formattedDate: date } = formattedDate()
         const message = formatedMessage(date, bunkList, "Today's Bunk List", lectureName)
         const client = getClient()
 
@@ -316,22 +318,101 @@ const bunkReport = async (req, res) => {
 
 }
 
-const generatePDF = async (req, res) => {
+// const generatePDF = async (req, res) => {
 
-    try {
+//     try {
 
-        const { report, className } = req.body
-        report.className = className
-        const buffer = await generatePDFBuffer(report)
+//         const { report, className } = req.body
+//         report.className = className
+//         const buffer = await generatePDFBuffer(report)
 
-        res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename=AttendanceReport.pdf');
-        res.send(buffer);
+//         res.setHeader('Content-Type', 'application/pdf');
+//         res.setHeader('Content-Disposition', 'attachment; filename=AttendanceReport.pdf');
+//         res.send(buffer);
 
-    } catch (error) {
-        console.log(`attendnaceController-generatePDF Error: ${error}`)
-    }
+//     } catch (error) {
+//         console.log(`attendnaceController-generatePDF Error: ${error}`)
+//     }
 
+// }
+
+const attendanceAnalytics = async (req, res) => {
+
+    console.log(req.body)
+    const { classId, studentId } = req.body
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    const allReports = await Promise.all(
+        months.map(async (month) => {
+            console.log()
+            const allDBReports = await attendanceModel.find({ 
+                 classId: classId,
+                 reportDate: { $regex: month, $options: "i" } ,
+                  "attendance.studentId": studentId 
+                })
+            console.log(`reports for:${month} `, allDBReports)
+            let monthAttendance = []
+            if (allDBReports.length > 0) {
+                const days = getDaysInMonth(month)
+                for (let i = 1; i <= days; i++) {
+                    const dateReport = allDBReports.find((report) => {
+                        const date = i
+                        let regdate = date
+                        if (i < 10) regdate = `0${date}`
+                        const regex = new RegExp(`\\b${regdate}\\b`);
+                        const isContain = regex.test(report.reportDate)
+                        if (isContain) return report
+                        else return null
+
+                    })
+                    if(dateReport){
+                        dateReport.attendance.map((student) => {
+                            if (student.studentId == studentId) {
+                                console.log('Hey I am here')
+                                console.log(`Student Id matched for student: ${student.studentId}`)
+                                monthAttendance.push({ monthDate: `${month}-${i}`, dateStatus: student.status })
+                            }
+                        })
+                    }else{
+                          monthAttendance.push({ monthDate: `${month}-${i}`, dateStatus: 'unmarked' })
+                    }
+
+                    // allDBReports.map((report) => {
+                    //     // let isFirstRound = true
+                    //     // if(i > 1) isFirstRound = false
+                    //     const date = i
+                    //     let regdate = date
+                    //     if (i < 10) regdate = `0${date}`
+                    //     const regex = new RegExp(`\\b${regdate}\\b`);
+                    //     const isContain = regex.test(report.reportDate)
+                    //     if (isContain) {
+                    //         report.attendance.map((student) => {
+                    //             if (student.studentId == studentId) {
+                    //                 console.log('Hey I am here')
+                    //                 console.log(`Student Id matched for student: ${student.studentId}`)
+
+                    //                 monthAttendance.push({ monthDate: `${month}-${i}`, dateStatus: student.status })
+                    //             }
+                    //         })
+                    //     } else {
+
+
+                    //         monthAttendance.push({ monthDate: `${month}-${i}`, dateStatus: 'unmarked' })
+
+                    //     }
+                    // })
+
+                }
+                console.log(`${month}`, monthAttendance)
+
+            }
+
+
+            return { reportMonth: month, monthAttendance: monthAttendance }
+
+        })
+
+    )
+    return res.status(200).json({ allReports })
 }
 
 
@@ -380,4 +461,4 @@ const deleteAttendance = async (req, res) => {
 
 
 
-module.exports = { createAttendance, updateAttendance, getAttendance, bunkReport, generatePDF, deleteAttendance }
+module.exports = { createAttendance, updateAttendance, getAttendance, bunkReport, attendanceAnalytics, deleteAttendance }

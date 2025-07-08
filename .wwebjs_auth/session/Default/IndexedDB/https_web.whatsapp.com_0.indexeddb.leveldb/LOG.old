@@ -1,11 +1,7 @@
-2025/06/28-20:01:41.168 29a0 Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2025/06/28-20:01:41.168 29a0 Recovering log #42
-2025/06/28-20:01:41.420 29a0 Reusing old log C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000042.log 
-2025/06/28-20:01:43.490 2a60 Level-0 table #47: started
-2025/06/28-20:01:43.521 2a60 Level-0 table #47: 859589 bytes OK
-2025/06/28-20:01:43.525 2a60 Delete type=0 #42
-2025/06/28-20:01:43.525 2a60 Manual compaction at level-0 from '\x00\x19\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x1a\x00\x00\x00' @ 0 : 0; will stop at (end)
-2025/06/28-20:01:45.784 2808 Compacting 1@1 + 1@2 files
-2025/06/28-20:01:45.894 2808 Generated table #48@1: 48072 keys, 2086014 bytes
-2025/06/28-20:01:45.894 2808 Compacted 1@1 + 1@2 files => 2086014 bytes
-2025/06/28-20:01:45.897 2808 compacted to: files[ 0 0 1 0 0 0 0 ]
+2025/07/08-23:06:14.440 2238 Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/07/08-23:06:14.441 2238 Recovering log #327
+2025/07/08-23:06:14.444 2238 Reusing old log C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000327.log 
+2025/07/08-23:06:16.592 1a18 Level-0 table #335: started
+2025/07/08-23:06:16.601 1a18 Level-0 table #335: 41429 bytes OK
+2025/07/08-23:06:16.605 1a18 Delete type=0 #327
+2025/07/08-23:06:16.605 1a18 Manual compaction at level-0 from '\x00k\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00l\x00\x00\x00' @ 0 : 0; will stop at (end)
