@@ -111,7 +111,7 @@ const createAttendance = async (req, res) => {
 
 const getAttendance = async (req, res) => {
 
-    const { classId } = req.body
+    const { classId , reportMonth } = req.body
 
     if (!classId) return res.status(400).json({ msg: 'Please provide a classId' })
 
@@ -130,9 +130,21 @@ const getAttendance = async (req, res) => {
         // console.log(populatedAttendance.attendance)
     })
 
+    const allReports = await Promise.all(
+        
+    allAttendanceInfo.map((report) => {
+        
+    let regMonth = reportMonth 
+    const regex = new RegExp(`\\b${regMonth}\\b`);
+    const isContain = regex.test(report.reportDate)
+    if (isContain) return report
+
+    })
+
+    )
 
 
-    return res.status(200).json({ msg: 'Attendance report fetch successful', allAttendanceInfo: allAttendanceInfo })
+    return res.status(200).json({ msg: 'Attendance report fetch successful', allAttendanceInfo: allReports })
 }
 
 const updateAttendance = async (req, res) => {
@@ -344,11 +356,11 @@ const attendanceAnalytics = async (req, res) => {
     const allReports = await Promise.all(
         months.map(async (month) => {
             console.log()
-            const allDBReports = await attendanceModel.find({ 
-                 classId: classId,
-                 reportDate: { $regex: month, $options: "i" } ,
-                  "attendance.studentId": studentId 
-                })
+            const allDBReports = await attendanceModel.find({
+                classId: classId,
+                reportDate: { $regex: month, $options: "i" },
+                "attendance.studentId": studentId
+            })
             console.log(`reports for:${month} `, allDBReports)
             let monthAttendance = []
             if (allDBReports.length > 0) {
@@ -364,7 +376,7 @@ const attendanceAnalytics = async (req, res) => {
                         else return null
 
                     })
-                    if(dateReport){
+                    if (dateReport) {
                         dateReport.attendance.map((student) => {
                             if (student.studentId == studentId) {
                                 console.log('Hey I am here')
@@ -372,8 +384,8 @@ const attendanceAnalytics = async (req, res) => {
                                 monthAttendance.push({ monthDate: `${month}-${i}`, dateStatus: student.status })
                             }
                         })
-                    }else{
-                          monthAttendance.push({ monthDate: `${month}-${i}`, dateStatus: 'unmarked' })
+                    } else {
+                        monthAttendance.push({ monthDate: `${month}-${i}`, dateStatus: 'unmarked' })
                     }
 
                     // allDBReports.map((report) => {
