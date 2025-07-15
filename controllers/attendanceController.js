@@ -285,7 +285,8 @@ const updateAttendance = async (req, res) => {
 const bunkReport = async (req, res) => {
     try {
         const { bunkList, groupId, classId, lectureName } = req.body
-        const { formattedDate: date } = formattedDate()
+        const date = formattedDate()
+        // console.log("Date",date)
         const message = formatedMessage(date, bunkList, "Today's Bunk List", lectureName)
         const client = getClient()
 

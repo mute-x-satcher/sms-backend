@@ -1,3 +1,2 @@
-2025/07/15-22:23:05.307 31c0 Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\Local Storage\leveldb/MANIFEST-000001
-2025/07/15-22:23:05.308 31c0 Recovering log #3
-2025/07/15-22:23:05.309 31c0 Reusing old log C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\Local Storage\leveldb/000003.log 
+2025/07/15-23:24:11.051 1c2c Creating DB C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\Local Storage\leveldb since it was missing.
+2025/07/15-23:24:11.071 1c2c Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\Local Storage\leveldb/MANIFEST-000001
