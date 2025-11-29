@@ -1,24 +1,12 @@
-2025/09/20-09:14:01.153 e00 Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2025/09/20-09:14:01.154 e00 Recovering log #58
-2025/09/20-09:14:01.174 e00 Reusing old log C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000058.log 
-2025/09/20-09:14:03.569 178c Level-0 table #64: started
-2025/09/20-09:14:03.580 178c Level-0 table #64: 115138 bytes OK
-2025/09/20-09:14:03.584 178c Delete type=0 #58
-2025/09/20-09:14:03.584 178c Manual compaction at level-0 from '\x00\x1c\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x1d\x00\x00\x00' @ 0 : 0; will stop at (end)
-2025/09/20-09:14:03.589 1c3c Level-0 table #66: started
-2025/09/20-09:14:03.603 1c3c Level-0 table #66: 2138 bytes OK
-2025/09/20-09:14:03.605 1c3c Delete type=0 #63
-2025/09/20-09:14:03.606 1c3c Manual compaction at level-0 from '\x00\x1d\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x1e\x00\x00\x00' @ 0 : 0; will stop at '\x00\x1d\x00\x00\x05' @ 165405 : 0
-2025/09/20-09:14:03.606 1c3c Compacting 1@0 + 1@1 files
-2025/09/20-09:14:03.621 1c3c Generated table #67@0: 3588 keys, 74449 bytes
-2025/09/20-09:14:03.621 1c3c Compacted 1@0 + 1@1 files => 74449 bytes
-2025/09/20-09:14:03.624 1c3c compacted to: files[ 0 1 1 0 0 0 0 ]
-2025/09/20-09:14:03.624 1c3c Delete type=2 #66
-2025/09/20-09:14:03.624 1c3c Manual compaction at level-0 from '\x00\x1d\x00\x00\x05' @ 165405 : 0 .. '\x00\x1e\x00\x00\x00' @ 0 : 0; will stop at (end)
-2025/09/20-09:14:06.310 2374 Compacting 1@1 + 1@2 files
-2025/09/20-09:14:06.377 2374 Generated table #68@1: 36265 keys, 1781010 bytes
-2025/09/20-09:14:06.377 2374 Compacted 1@1 + 1@2 files => 1781010 bytes
-2025/09/20-09:14:06.381 2374 compacted to: files[ 0 0 1 0 0 0 0 ]
-2025/09/20-09:14:06.381 2374 Delete type=2 #61
-2025/09/20-09:14:06.381 2374 Delete type=2 #64
-2025/09/20-09:14:06.381 2374 Delete type=2 #67
+2025/11/29-12:59:08.004 157c Reusing MANIFEST C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/11/29-12:59:08.004 157c Recovering log #49
+2025/11/29-12:59:08.442 157c Reusing old log C:\Users\Mute-X Satcher\Desktop\Classmark\Backend\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000049.log 
+2025/11/29-12:59:10.311 1a00 Level-0 table #55: started
+2025/11/29-12:59:10.347 1a00 Level-0 table #55: 936104 bytes OK
+2025/11/29-12:59:10.351 1a00 Delete type=0 #49
+2025/11/29-12:59:10.351 1a00 Manual compaction at level-0 from '\x00\x19\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x1a\x00\x00\x00' @ 0 : 0; will stop at (end)
+2025/11/29-12:59:13.112 281c Compacting 1@1 + 2@2 files
+2025/11/29-12:59:13.280 281c Generated table #56@1: 25309 keys, 2187786 bytes
+2025/11/29-12:59:13.317 281c Generated table #57@1: 24576 keys, 514468 bytes
+2025/11/29-12:59:13.317 281c Compacted 1@1 + 2@2 files => 2702254 bytes
+2025/11/29-12:59:13.320 281c compacted to: files[ 0 0 2 0 0 0 0 ]
