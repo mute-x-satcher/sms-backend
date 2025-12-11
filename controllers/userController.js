@@ -8,7 +8,7 @@ const fmcVerification = async(req,res) => {
 
         const {fmcVerification,accountId} = req.body
         if(fmcVerification == true){
-              await userModel.updateOne({_id: accountId},{$set: {fmcVerified: false}})
+              await userModel.updateOne({_id: accountId},{$set: {fmcVerified: true}})
             console.log('FMC Work')
         }
     }catch(err){
