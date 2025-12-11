@@ -2,6 +2,21 @@ const userModel = require('../models/userModel')
 const {generateToken} = require('../jwt/jwt')
 const {sendEmail} = require('../nodemailer/nodemail')
 
+
+const fmcVerification = async(req,res) => {
+    try{
+
+        const {fmcVerification,accountId} = req.body
+        if(fmcVerification == true){
+              await userModel.updateOne({_id: accountId},{$set: {fmcVerified: false}})
+            console.log('FMC Work')
+        }
+    }catch(err){
+        console.log('fmcError:' , err)
+    }
+}
+
+
 const createUser = async (req,res) =>  {
 
     try {
@@ -110,4 +125,4 @@ const protectedUser = async (req,res) => {
 
 
 
-module.exports = {createUser,verifyUser,loginUser,protectedUser}
+module.exports = {createUser,verifyUser,loginUser,protectedUser,fmcVerification}
