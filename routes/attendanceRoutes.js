@@ -5,9 +5,9 @@ const {createAttendanceMiddleware} = require('../middleware/attendanceMiddleware
 const whatsappClientMiddleware = require('../middleware/whatsappClientMiddlware')
 
 router.post('/get',getAttendance)
-router.post('/create',whatsappClientMiddleware,createAttendanceMiddleware,createAttendance)
-router.put('/update',whatsappClientMiddleware,updateAttendance)
-router.post('/bunk',whatsappClientMiddleware,bunkReport)
+router.post('/create',createAttendanceMiddleware,createAttendance)
+router.put('/update',updateAttendance)
+router.post('/bunk',,bunkReport)
 router.post('/analytics',attendanceAnalytics)
 // router.post('/pdf',generatePDF)
 router.delete('/delete',deleteAttendance)
