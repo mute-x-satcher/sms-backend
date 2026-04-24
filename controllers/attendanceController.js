@@ -15,50 +15,50 @@ const createAttendance = async (req, res) => {
     try {
         const { classId, groupId, className, reportType, reportName, attendance } = req.body
         // console.log(req.body)
-        const reportDate = formattedDate()
-        const client = getClient()
-        const pdfData = {
-            className,
-            reportDate,
-            reportName,
-            attendance,
-        }
+        // const reportDate = formattedDate()
+        // const client = getClient()
+        // const pdfData = {
+        //     className,
+        //     reportDate,
+        //     reportName,
+        //     attendance,
+        // }
 
-        const pdfBuffer = await generatePDFBuffer(pdfData);
+        // const pdfBuffer = await generatePDFBuffer(pdfData);
 
-        const media = new MessageMedia(
-            'application/pdf',
-            pdfBuffer.toString('base64'),
-            `${className}-${reportDate}.pdf`
-        );
+        // const media = new MessageMedia(
+        //     'application/pdf',
+        //     pdfBuffer.toString('base64'),
+        //     `${className}-${reportDate}.pdf`
+        // );
 
-        await client.sendMessage(groupId, media, {
-            caption: `${reportDate}\nToday's attendannce sheet.`
-        });
+        // await client.sendMessage(groupId, media, {
+        //     caption: `${reportDate}\nToday's attendannce sheet.`
+        // });
 
 
 
-        let absnetStudents = []
+        // let absnetStudents = []
 
-        attendance.map((student) => {
-            if (student.status == 'absent') {
-                absnetStudents.push({
-                    studentName: student.studentName,
-                    rollNumber: student.rollNumber,
-                    id: student._id
-                })
-            }
-        })
+        // attendance.map((student) => {
+        //     if (student.status == 'absent') {
+        //         absnetStudents.push({
+        //             studentName: student.studentName,
+        //             rollNumber: student.rollNumber,
+        //             id: student._id
+        //         })
+        //     }
+        // })
 
-        absnetStudents.map(async (student) => {
-            await studnetModel.updateOne({ _id: student.id }, { $inc: { absentCount: 1 } })
-        })
+        // absnetStudents.map(async (student) => {
+        //     await studnetModel.updateOne({ _id: student.id }, { $inc: { absentCount: 1 } })
+        // })
 
-        if (absnetStudents.length > 0) {
-            const message = formatedMessage(reportDate, absnetStudents, "Today's Absent Students")
-            const msgResposne = await client.sendMessage(groupId, message)
-            //    console.log(`Attendacne create Message response:`,msgResposne) 
-        }
+        // if (absnetStudents.length > 0) {
+        //     const message = formatedMessage(reportDate, absnetStudents, "Today's Absent Students")
+        //     const msgResposne = await client.sendMessage(groupId, message)
+        //     //    console.log(`Attendacne create Message response:`,msgResposne) 
+        // }
 
 
         // const buffer = await generatePDFBuffer(pdfData);
@@ -100,7 +100,7 @@ const createAttendance = async (req, res) => {
 
 
 
-        return res.status(200).json({ msg: 'Attendance report successfuly created' })
+        return res.status(200).json({ msg: 'Attendance report successfuly created',attendanceInfo: attendanceInfo })
 
     } catch (error) {
         console.log(`attendanceController-createAttendance Error: ${error}`, error)
