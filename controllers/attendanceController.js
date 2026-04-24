@@ -14,8 +14,8 @@ const createAttendance = async (req, res) => {
 
     try {
         const { classId, groupId, className, reportType, reportName, attendance } = req.body
-        // console.log(req.body)
-        // const reportDate = formattedDate()
+        console.log(req.body)
+        const reportDate = formattedDate()
         // const client = getClient()
         // const pdfData = {
         //     className,
